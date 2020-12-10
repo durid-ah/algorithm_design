@@ -65,8 +65,7 @@ func (self *PeakProblem) getMaximum(locations []Location) *Location {
 
 func (self *PeakProblem) isPeak(location *Location) bool {
 	betterLoc := self.getBetterNeighbor(location)
-	return betterLoc.col == location.col &&
-		betterLoc.row == location.row
+	return betterLoc == location
 }
 
 func (peak *PeakProblem) getSubproblem(sRow int, sCol int, nRow int, nCol int) *PeakProblem {
@@ -77,6 +76,10 @@ func (peak *PeakProblem) getSubproblem(sRow int, sCol int, nRow int, nCol int) *
 		nRow, nCol }
 	
 	return &newPeak
+}
+
+func (self *PeakProblem) getSubproblemContaining(boundList []Bound) *Location {
+ 	return nil 
 }
 
 
