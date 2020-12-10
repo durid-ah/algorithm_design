@@ -48,8 +48,35 @@ func (self *PeakProblem)getBetterNeighbor(location *Location) *Location {
 	return best
 }
 
-func (self *PeakProblem) getMaximum(locations []Location) {
+func (self *PeakProblem) getMaximum(locations []Location) *Location {
+	var bestLoc *Location = nil
+	bestVal := 0
+
+	for _, loc := range locations {
+		locVal := self.Get(&loc)
+		if bestLoc == nil || locVal > bestVal {
+			bestLoc = &loc
+			bestVal = locVal
+		}
+	}
+
+	return bestLoc
+}
+
+func (self *PeakProblem) isPeak(location *Location) bool {
+	betterLoc := self.getBetterNeighbor(location)
+	return betterLoc.col == location.col &&
+		betterLoc.row == location.row
+}
+
+func (peak *PeakProblem) getSubproblem(sRow int, sCol int, nRow int, nCol int) *PeakProblem {
+	newPeak := PeakProblem { 
+		peak.array,
+		peak.startRow + sRow,
+		peak.startCol + sCol,
+		nRow, nCol }
 	
+	return &newPeak
 }
 
 
