@@ -8,7 +8,9 @@ type PeakProblem struct {
 	numCol int
 }
 
-func (self * PeakProblem) Get(r int, c int) int {
+func (self * PeakProblem) Get(location *Location) int {
+	r := location.row
+	c := location.col
 
 	if !(0 <= r && r < self.numRow) {
 		return 0
@@ -19,31 +21,35 @@ func (self * PeakProblem) Get(r int, c int) int {
 	return self.array[self.startRow + r][self.startCol + c]
 }
 
-func (self *PeakProblem)getBetterNeighbor(r int, c int) (int, int) {
-	bestr := r
-	bestc := c
+func (self *PeakProblem)getBetterNeighbor(location *Location) *Location {
+	r, c := location.row, location.col
+	best := location
 	
-	if r - 1 >= 0 && self.Get(r - 1, c) > self.Get(bestr, bestc) {
-		bestr = r - 1
-		bestc = c
+	tempLoc := Location{r - 1, c}
+	if r - 1 >= 0 && self.Get(&tempLoc) > self.Get(best) {
+		best = &tempLoc
 	} 
 	
-	if c - 1 >= 0 && self.Get(r, c - 1) > self.Get(bestr, bestc) {
-		bestr = r
-		bestc = c - 1		
+	tempLoc = Location{r, c - 1}
+	if c - 1 >= 0 && self.Get(&tempLoc) > self.Get(best) {
+		best = &tempLoc
 	}
 	
-	if r + 1 < self.numRow && self.Get(r + 1, c) > self.Get(bestr, bestc) {
-		bestr = r + 1
-		bestc = c
+	tempLoc = Location{r + 1, c}
+	if r + 1 < self.numRow && self.Get(&tempLoc) > self.Get(best) {
+		best = &tempLoc
 	}
 
-	if c + 1 < self.numCol && self.Get(r, c + 1) > self.Get(bestr, bestc) {
-		bestr = r + 1
-		bestc = c
+	tempLoc = Location{r , c + 1}
+	if c + 1 < self.numCol && self.Get(&tempLoc) > self.Get(best) {
+		best = &tempLoc
 	}
 
-	return bestr, bestc
+	return best
+}
+
+func (self *PeakProblem) getMaximum(locations []Location) {
+	
 }
 
 
