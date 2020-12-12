@@ -5,7 +5,7 @@ type Location struct {
 	col int
 }
 
-func Loc(r int, c int) *Location { 
+func Loc(r int, c int) *Location {
 	return &Location{r, c}
 }
 
@@ -17,5 +17,5 @@ type Bound struct {
 }
 
 func NewBound(sRow int, sCol int, nRow int, nCol int) *Bound {
-	return &Bound {sRow, sCol, nRow, nCol}
+	return &Bound{sRow, sCol, nRow, nCol}
 }
