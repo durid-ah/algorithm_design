@@ -11,6 +11,10 @@ type PeakProblem struct {
 }
 
 
+// Get Returns the value of the array at the given location, offset by
+// the coordinates (startRow, startCol).
+//
+// RUNTIME: O(1)
 func (peak *PeakProblem) Get(location *Location) int {
 	r := location.row
 	c := location.col
@@ -25,7 +29,11 @@ func (peak *PeakProblem) Get(location *Location) int {
 }
 
 
-func (peak *PeakProblem) getBetterNeighbor(location *Location) *Location {
+// GetBetterNeighbor If (r, c) has a better neighbor, return the neighbor.  Otherwise,
+// return the location (r, c).
+//
+// RUNTIME: O(1)
+func (peak *PeakProblem) GetBetterNeighbor(location *Location) *Location {
 	r, c := location.row, location.col
 	best := location
 
@@ -53,7 +61,10 @@ func (peak *PeakProblem) getBetterNeighbor(location *Location) *Location {
 }
 
 
-func (peak *PeakProblem) getMaximum(locations []Location) *Location {
+// GetMaximum Finds the location in the current problem with the greatest value.
+//
+// RUNTIME: O(len(locations))
+func (peak *PeakProblem) GetMaximum(locations []Location) *Location {
 	var bestLoc *Location = nil
 	bestVal := 0
 
@@ -68,12 +79,22 @@ func (peak *PeakProblem) getMaximum(locations []Location) *Location {
 	return bestLoc
 }
 
-func (peak *PeakProblem) isPeak(location *Location) bool {
-	betterLoc := peak.getBetterNeighbor(location)
+
+// IsPeak Returns true if the given location is a peak in the current subproblem.
+//
+// RUNTIME: O(1)
+func (peak *PeakProblem) IsPeak(location *Location) bool {
+	betterLoc := peak.GetBetterNeighbor(location)
 	return betterLoc == location
 }
 
-func (peak *PeakProblem) getSubproblem(sRow int, sCol int, nRow int, nCol int) *PeakProblem {
+
+// GetSubproblem Returns a subproblem with the given bounds.  
+// The bounds is a quadruple of numbers: 
+// (starting row, starting column, # of rows, # of columns).
+//
+// RUNTIME: O(1)
+func (peak *PeakProblem) GetSubproblem(sRow int, sCol int, nRow int, nCol int) *PeakProblem {
 	newPeak := PeakProblem{
 		peak.array,
 		peak.startRow + sRow,
@@ -83,7 +104,13 @@ func (peak *PeakProblem) getSubproblem(sRow int, sCol int, nRow int, nCol int) *
 	return &newPeak
 }
 
-func (peak *PeakProblem) getSubproblemContaining(
+
+// GetSubproblemContaining Returns the subproblem containing the given location.
+// Picks the first of the subproblems in the list which satisfies that constraint, and
+// then constructs the subproblem using getSubproblem().
+//
+// RUNTIME: O(len(boundList))
+func (peak *PeakProblem) GetSubproblemContaining(
 	boundList []Bound, location *Location) *PeakProblem {
 
 	row := location.row
@@ -94,7 +121,7 @@ func (peak *PeakProblem) getSubproblemContaining(
 			(row < (bound.sRow + bound.nRow)) {
 			if (bound.sCol <= col) &&
 				(col < bound.sCol+bound.nCol) {
-				return peak.getSubproblem(
+				return peak.GetSubproblem(
 					bound.sRow, bound.sCol, bound.nRow, bound.nCol)
 			}
 		}
@@ -103,11 +130,12 @@ func (peak *PeakProblem) getSubproblemContaining(
 	return peak
 }
 
-// Remaps the location in the given problem to the same location in
-// the problem that this function is being called from.
+
+// GetLocationInSelf Remaps the location in the given problem to the
+// same location in the problem that this function is being called from.
 //
 // RUNTIME: O(1)
-func (peak *PeakProblem)getLocationInSelf(
+func (peak *PeakProblem)GetLocationInSelf(
 	problem *PeakProblem, location *Location) Location {
 
 	row := location.row
@@ -143,11 +171,12 @@ func getDimensions(array *[][]int) (int, int) {
 	return rows, cols
 }
 
-// Constructs an instance of the PeakProblem object for the given array,
+
+// CreateProblem Constructs an instance of the PeakProblem object for the given array,
 // using bounds derived from the array using the getDimensions function.
 //
 // RUNTIME: O(len(array))
-func createProblem(array [][]int) *PeakProblem {
+func CreateProblem(array [][]int) *PeakProblem {
 	rows, cols := getDimensions(&array)
 	return &PeakProblem{array, 0, 0, rows, cols}
 }
