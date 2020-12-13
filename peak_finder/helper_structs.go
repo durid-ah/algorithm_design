@@ -1,6 +1,7 @@
 package main
 
 
+// Location of a value (i.e Peak)
 type Location struct {
 	row int
 	col int
@@ -12,6 +13,7 @@ func Loc(r int, c int) *Location {
 	return &Location{r, c}
 }
 
+// Bound contains the bounds of the exercise
 type Bound struct {
 	sRow int
 	sCol int
