@@ -5,7 +5,6 @@ import (
 )
 
 
-
 func main() {
 	problemMatrix := [][]int{
 		{4,  5,  6,  7,  8,  7,  6,  5,  4,  3,  2},
@@ -22,7 +21,8 @@ func main() {
 	}
 
 	fmt.Println(problemMatrix)
-	s := 1
-	b := &s
-	fmt.Println(*b)
+
+	fmt.Println(MakeRange(10, 20))
+
+	fmt.Println(algorithm1(CreateProblem(problemMatrix)))
 }

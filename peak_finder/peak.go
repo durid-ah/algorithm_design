@@ -94,12 +94,12 @@ func (peak *PeakProblem) IsPeak(location *Location) bool {
 // (starting row, starting column, # of rows, # of columns).
 //
 // RUNTIME: O(1)
-func (peak *PeakProblem) GetSubproblem(sRow int, sCol int, nRow int, nCol int) *PeakProblem {
+func (peak *PeakProblem) GetSubproblem(bound *Bound) *PeakProblem {
 	newPeak := PeakProblem{
 		peak.array,
-		peak.startRow + sRow,
-		peak.startCol + sCol,
-		nRow, nCol}
+		peak.startRow + bound.sRow,
+		peak.startCol + bound.sCol,
+		bound.nRow, bound.nCol}
 
 	return &newPeak
 }
@@ -121,8 +121,7 @@ func (peak *PeakProblem) GetSubproblemContaining(
 			(row < (bound.sRow + bound.nRow)) {
 			if (bound.sCol <= col) &&
 				(col < bound.sCol+bound.nCol) {
-				return peak.GetSubproblem(
-					bound.sRow, bound.sCol, bound.nRow, bound.nCol)
+				return peak.GetSubproblem(&bound)
 			}
 		}
 	}
