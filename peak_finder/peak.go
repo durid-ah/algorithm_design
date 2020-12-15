@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 // PeakProblem A class representing an instance of a peak-finding problem.
 type PeakProblem struct {
 	array    [][]int
@@ -32,26 +36,27 @@ func (peak *PeakProblem) Get(location *Location) int {
 // RUNTIME: O(1)
 func (peak *PeakProblem) GetBetterNeighbor(location *Location) *Location {
 	r, c := location.row, location.col
-	best := location
+	best := new(Location)
+	*best = *location
 
 	tempLoc := Location{r - 1, c}
 	if r-1 >= 0 && peak.Get(&tempLoc) > peak.Get(best) {
-		best = &tempLoc
+		*best = tempLoc
 	}
 
 	tempLoc = Location{r, c - 1}
 	if c-1 >= 0 && peak.Get(&tempLoc) > peak.Get(best) {
-		best = &tempLoc
+		*best = tempLoc
 	}
 
 	tempLoc = Location{r + 1, c}
 	if r+1 < peak.numRow && peak.Get(&tempLoc) > peak.Get(best) {
-		best = &tempLoc
+		*best = tempLoc
 	}
 
 	tempLoc = Location{r, c + 1}
 	if c+1 < peak.numCol && peak.Get(&tempLoc) > peak.Get(best) {
-		best = &tempLoc
+		*best = tempLoc
 	}
 
 	return best
@@ -110,10 +115,8 @@ func (peak *PeakProblem) GetSubproblemContaining(
 	col := location.col
 
 	for _, bound := range boundList {
-		if (bound.sRow <= row) &&
-			(row < (bound.sRow + bound.nRow)) {
-			if (bound.sCol <= col) &&
-				(col < bound.sCol+bound.nCol) {
+		if (bound.sRow <= row) && (row < (bound.sRow + bound.nRow)) {
+			if (bound.sCol <= col) && (col < bound.sCol+bound.nCol) {
 				return peak.GetSubproblem(&bound)
 			}
 		}
@@ -136,6 +139,11 @@ func (peak *PeakProblem) GetLocationInSelf(
 	newCol := col + problem.startCol - peak.startCol
 
 	return Location{newRow, newCol}
+}
+
+func (peak *PeakProblem) PrintProblem() {
+	fmt.Print("Properties: ")
+	fmt.Println(peak.numCol, peak.numRow, peak.startCol, peak.startRow)
 }
 
 /***********************************************************************/
