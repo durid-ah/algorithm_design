@@ -1,6 +1,5 @@
 package main
 
-
 // PeakProblem A class representing an instance of a peak-finding problem.
 type PeakProblem struct {
 	array    [][]int
@@ -9,7 +8,6 @@ type PeakProblem struct {
 	numRow   int
 	numCol   int
 }
-
 
 // Get Returns the value of the array at the given location, offset by
 // the coordinates (startRow, startCol).
@@ -27,7 +25,6 @@ func (peak *PeakProblem) Get(location *Location) int {
 
 	return peak.array[peak.startRow+r][peak.startCol+c]
 }
-
 
 // GetBetterNeighbor If (r, c) has a better neighbor, return the neighbor.  Otherwise,
 // return the location (r, c).
@@ -60,7 +57,6 @@ func (peak *PeakProblem) GetBetterNeighbor(location *Location) *Location {
 	return best
 }
 
-
 // GetMaximum Finds the location in the current problem with the greatest value.
 //
 // RUNTIME: O(len(locations))
@@ -79,7 +75,6 @@ func (peak *PeakProblem) GetMaximum(locations []Location) *Location {
 	return bestLoc
 }
 
-
 // IsPeak Returns true if the given location is a peak in the current subproblem.
 //
 // RUNTIME: O(1)
@@ -88,9 +83,8 @@ func (peak *PeakProblem) IsPeak(location *Location) bool {
 	return betterLoc == location
 }
 
-
-// GetSubproblem Returns a subproblem with the given bounds.  
-// The bounds is a quadruple of numbers: 
+// GetSubproblem Returns a subproblem with the given bounds.
+// The bounds is a quadruple of numbers:
 // (starting row, starting column, # of rows, # of columns).
 //
 // RUNTIME: O(1)
@@ -103,7 +97,6 @@ func (peak *PeakProblem) GetSubproblem(bound *Bound) *PeakProblem {
 
 	return &newPeak
 }
-
 
 // GetSubproblemContaining Returns the subproblem containing the given location.
 // Picks the first of the subproblems in the list which satisfies that constraint, and
@@ -129,12 +122,11 @@ func (peak *PeakProblem) GetSubproblemContaining(
 	return peak
 }
 
-
 // GetLocationInSelf Remaps the location in the given problem to the
 // same location in the problem that this function is being called from.
 //
 // RUNTIME: O(1)
-func (peak *PeakProblem)GetLocationInSelf(
+func (peak *PeakProblem) GetLocationInSelf(
 	problem *PeakProblem, location *Location) Location {
 
 	row := location.row
@@ -169,7 +161,6 @@ func getDimensions(array *[][]int) (int, int) {
 
 	return rows, cols
 }
-
 
 // CreateProblem Constructs an instance of the PeakProblem object for the given array,
 // using bounds derived from the array using the getDimensions function.
