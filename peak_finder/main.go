@@ -22,5 +22,5 @@ func main() {
 	fmt.Println(problemMatrix)
 
 	//fmt.Println(MakeRange(10, 20))
-	//fmt.Println(algorithm1(CreateProblem(problemMatrix)))
+	fmt.Println(algorithm1(CreateProblem(problemMatrix)))
 }

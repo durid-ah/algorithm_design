@@ -66,15 +66,19 @@ func (peak *PeakProblem) GetBetterNeighbor(location *Location) *Location {
 //
 // RUNTIME: O(len(locations))
 func (peak *PeakProblem) GetMaximum(locations []Location) *Location {
-	var bestLoc *Location = nil
+	var bestLoc *Location = &Location{-1, -1}
 	bestVal := 0
 
 	for _, loc := range locations {
 		locVal := peak.Get(&loc)
 		if bestLoc == nil || locVal > bestVal {
-			bestLoc = &loc
+			*bestLoc = loc
 			bestVal = locVal
 		}
+	}
+
+	if (bestLoc.col == -1 && bestLoc.row == -1) {
+		return nil
 	}
 
 	return bestLoc
@@ -85,7 +89,7 @@ func (peak *PeakProblem) GetMaximum(locations []Location) *Location {
 // RUNTIME: O(1)
 func (peak *PeakProblem) IsPeak(location *Location) bool {
 	betterLoc := peak.GetBetterNeighbor(location)
-	return betterLoc == location
+	return *betterLoc == *location
 }
 
 // GetSubproblem Returns a subproblem with the given bounds.

@@ -40,7 +40,7 @@ func algorithm1(problem *PeakProblem) *Location {
 
 	// if GetBetterNeighbor returns the same location as bestLoc
 	// then we found the peak
-	if neighbor == bestLoc {
+	if *neighbor == *bestLoc {
 		return bestLoc
 	}
 
