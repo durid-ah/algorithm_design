@@ -23,4 +23,5 @@ func main() {
 
 	//fmt.Println(MakeRange(10, 20))
 	fmt.Println(algorithm1(CreateProblem(problemMatrix)))
+	fmt.Println(algorithm2(CreateProblem(problemMatrix), *Loc(0,0)))
 }
