@@ -1,1 +1,1 @@
-go run main.go helpers.go peak.go algorithm1.go
+go run main.go helpers.go peak.go algorithm1.go algorithm2.go
