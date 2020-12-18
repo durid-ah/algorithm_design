@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// algorithm 3 was ommitted because it was incorrect
 func main() {
 	problemMatrix := [][]int{
 		{4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2},
@@ -19,9 +20,24 @@ func main() {
 		{2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 0},
 	}
 
-	fmt.Println(problemMatrix)
+	problem := CreateProblem(problemMatrix)
 
-	//fmt.Println(MakeRange(10, 20))
-	fmt.Println(algorithm1(CreateProblem(problemMatrix)))
-	fmt.Println(algorithm2(CreateProblem(problemMatrix), *Loc(0,0)))
+	fmt.Println("The problem matrix:")
+	for _, row := range problemMatrix {
+		for _, value := range row {
+			fmt.Printf("%3d ", value)
+		}
+		fmt.Printf("\n")
+	}
+
+	loc1 := algorithm1(problem)
+	val1 := problem.Get(loc1)
+	
+	loc2 := algorithm2(problem, *Loc(0, 0))
+	val2 := problem.Get(loc1)
+
+	fmt.Printf("\n")
+	fmt.Printf("Algorithm 1: %+v Value: %v \n", loc1, val1)
+	fmt.Printf("Algorithm 2: %+v Value: %v \n", loc2, val2)
+
 }
