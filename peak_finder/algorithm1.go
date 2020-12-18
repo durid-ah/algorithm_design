@@ -47,9 +47,6 @@ func algorithm1(problem *PeakProblem) *Location {
 	// otherwise figure out which subproblem contains the neighbor,
 	// and recurse in that half
 	sub := problem.GetSubproblemContaining(subproblems, neighbor)
-	
-	sub.PrintProblem()
-	problem.PrintProblem()
 
 	result := algorithm1(sub)
 	returnVal := problem.GetLocationInSelf(sub, result)

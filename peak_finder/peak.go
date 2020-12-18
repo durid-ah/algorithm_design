@@ -1,8 +1,5 @@
 package main
 
-import (
-	"fmt"
-)
 
 // PeakProblem A class representing an instance of a peak-finding problem.
 type PeakProblem struct {
@@ -143,11 +140,6 @@ func (peak *PeakProblem) GetLocationInSelf(
 	newCol := col + problem.startCol - peak.startCol
 
 	return Location{newRow, newCol}
-}
-
-func (peak *PeakProblem) PrintProblem() {
-	fmt.Print("Properties: ")
-	fmt.Println(peak.numCol, peak.numRow, peak.startCol, peak.startRow)
 }
 
 /***********************************************************************/
