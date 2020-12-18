@@ -1,5 +1,7 @@
 package main
 
+// algorithm2 starts at a specified location and moves towards a higher
+// value
 func algorithm2(problem *PeakProblem, location Location) *Location {
 	if problem.numRow <= 0 || problem.numCol <= 0 {
 		return nil
