@@ -11,7 +11,7 @@ func algorithm2(problem *PeakProblem, location Location) *Location {
 
 	if *nextLoc == location {
 		return &location
-	} else {
-		return algorithm2(problem, *nextLoc)
 	}
+		
+	return algorithm2(problem, *nextLoc)
 }
