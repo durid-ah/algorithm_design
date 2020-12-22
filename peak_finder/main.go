@@ -4,7 +4,8 @@ import (
 	"fmt"
 )
 
-// algorithm 3 was ommitted because it was incorrect
+// Note: algorithm 3 was ommitted because it was incorrect
+// and I didn't do 4 because I didn't feel like it
 func main() {
 	problemMatrix := [][]int{
 		{4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2},
