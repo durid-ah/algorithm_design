@@ -1,9 +1,3 @@
-package main
-
-import (
-	"fmt"
-	"os"
-)
 // docdist1.go - initial version of document distance
 // Original version by Ronald L. Rivest on February 14, 2007
 // Revision by Erik D. Demaine on September 12, 2011
@@ -31,6 +25,19 @@ import (
 // where:
 //    inner_product(x,y) = x1*y1 + x2*y2 + ... xn*yn
 //    norm(x) = sqrt(inner_product(x,x))
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+// WordFrequenciesForFile returns alphabetically sorted list
+// of (word,frequency) pairs for the given file.
+func WordFrequenciesForFile(filename string) {
+
+}
+
 
 func main() {
 	appArgs := os.Args[1:]
