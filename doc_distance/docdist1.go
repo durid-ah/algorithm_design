@@ -35,8 +35,23 @@ import (
 	"unicode"
 )
 
+type NumStringPair struct {
+	word string
+	occurrence int
+}
+
 func isAlNum(r rune) bool {
 	return unicode.IsDigit(r) || unicode.IsLetter(r)
+}
+
+func contains(list []NumStringPair, item string) int {
+	for i, el := range list {
+		if el.word == item {
+			return i
+		}
+	}
+
+	return -1
 }
 
 // ReadFile reads the text file with the given filename;
@@ -91,11 +106,29 @@ func GetWordsFromString(line string) []string {
 	return wordList
 }
 
+// CountFrequency returns a list giving pairs of form: (word,frequency)
+func CountFrequency(wordList []string) []NumStringPair {
+	var L []NumStringPair
+
+	for _, word := range wordList {
+		if v := contains(L, word); v != -1 {
+			L[v].occurrence++
+		} else {
+			L = append(L, NumStringPair{word, 1})
+		}
+	}
+	
+	return L
+}
+
 // WordFrequenciesForFile returns alphabetically sorted list
 // of (word,frequency) pairs for the given file.
 func WordFrequenciesForFile(filename string) {
 	linelist := ReadFile(filename)
-	GetWordsFromLineList(linelist)
+	wordList := GetWordsFromLineList(linelist)
+	freqMapping := CountFrequency(wordList)
+
+	fmt.Println(freqMapping)
 }
 
 
