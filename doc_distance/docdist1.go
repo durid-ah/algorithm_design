@@ -56,10 +56,15 @@ func ReadFile(filename string) []string {
 // GetWordsFromLineList parses the given list L of
 // text lines into words.
 // Return list of all words found.
-func GetWordsFromLineList(list []string) {
+func GetWordsFromLineList(list []string) []string {
+	wordList := make([]string, 20)
+
 	for _, line := range list {
-		GetWordsFromString(line) 
+		wordsInLine := GetWordsFromString(line)
+		wordList = append(wordList, wordsInLine...) 
 	}
+
+	return wordList
 }
 
 // GetWordsFromString returns a list of the words in the given
