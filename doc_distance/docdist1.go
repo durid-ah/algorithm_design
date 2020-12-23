@@ -30,12 +30,45 @@ package main
 import (
 	"fmt"
 	"os"
+	"io/ioutil"
+	"strings"
+	"unicode"
 )
+
+func isAlNum(r rune) bool {
+	return unicode.IsDigit(r) || unicode.IsLetter(r)
+}
+
+// ReadFile reads the text file with the given filename;
+// return a list of the lines of text in the file.
+func ReadFile(filename string) []string {
+	
+	fileBytes, err := ioutil.ReadFile(filename)
+	if err != nil {
+		panic(err)
+	}
+
+	fileLines := strings.Split(string(fileBytes), "\n")
+	return fileLines
+}
+
+func GetWordsFromLineList(list []string) {
+	for _, line := range list {
+		GetWordsFromString(line) 
+	}
+}
+
+func GetWordsFromString(line string) {
+	for _, s := range line {
+		fmt.Println(s)
+	}
+}
 
 // WordFrequenciesForFile returns alphabetically sorted list
 // of (word,frequency) pairs for the given file.
 func WordFrequenciesForFile(filename string) {
-
+	linelist := ReadFile(filename)
+	GetWordsFromLineList(linelist)
 }
 
 
@@ -48,5 +81,7 @@ func main() {
 		filename1 := appArgs[0]
 		filename2 := appArgs[1]
 		fmt.Printf("%s %s \n", filename1, filename2)
+
+		WordFrequenciesForFile(filename1)
 	}
 }
