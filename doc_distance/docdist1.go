@@ -52,16 +52,32 @@ func ReadFile(filename string) []string {
 	return fileLines
 }
 
+
+// GetWordsFromLineList parses the given list L of
+// text lines into words.
+// Return list of all words found.
 func GetWordsFromLineList(list []string) {
 	for _, line := range list {
 		GetWordsFromString(line) 
 	}
 }
 
-func GetWordsFromString(line string) {
+// GetWordsFromString returns a list of the words in the given
+// input string, converting each word to lower-case.
+func GetWordsFromString(line string) []string {
+	wordList := make([]string, 10)
+	characterList := make([]rune, 5)
+	
 	for _, s := range line {
-		fmt.Println(s)
+		if isAlNum(s) {
+			characterList = append(characterList, s)
+		} else if len(characterList) > 0 {
+			word := strings.ToLower(string(characterList))
+			wordList = append(wordList, word)
+		}
 	}
+
+	return wordList
 }
 
 // WordFrequenciesForFile returns alphabetically sorted list
