@@ -74,7 +74,13 @@ func GetWordsFromString(line string) []string {
 		} else if len(characterList) > 0 {
 			word := strings.ToLower(string(characterList))
 			wordList = append(wordList, word)
+			characterList = make([]rune, 5)
 		}
+	}
+
+	if len(characterList) > 0 {
+		word := strings.ToLower(string(characterList))
+		wordList = append(wordList, word)
 	}
 
 	return wordList
