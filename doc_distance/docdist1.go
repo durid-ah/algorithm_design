@@ -35,15 +35,18 @@ import (
 	"unicode"
 )
 
+
 type NumStringPair struct {
 	word string
 	occurrence int
 }
 
+
 func isAlNum(r rune) bool {
 	fmt.Println(string(r), unicode.IsDigit(r) || unicode.IsLetter(r))
 	return unicode.IsDigit(r) || unicode.IsLetter(r)
 }
+
 
 func contains(list []NumStringPair, item string) int {
 	for i, el := range list {
@@ -54,6 +57,7 @@ func contains(list []NumStringPair, item string) int {
 
 	return -1
 }
+
 
 // ReadFile reads the text file with the given filename;
 // return a list of the lines of text in the file.
@@ -83,6 +87,7 @@ func GetWordsFromLineList(list []string) []string {
 	return wordList
 }
 
+
 // GetWordsFromString returns a list of the words in the given
 // input string, converting each word to lower-case.
 func GetWordsFromString(line string) []string {
@@ -108,6 +113,7 @@ func GetWordsFromString(line string) []string {
 	return wordList
 }
 
+
 // CountFrequency returns a list giving pairs of form: (word,frequency)
 func CountFrequency(wordList []string) []NumStringPair {
 	var L []NumStringPair
@@ -122,6 +128,7 @@ func CountFrequency(wordList []string) []NumStringPair {
 	
 	return L
 }
+
 
 // InsertionSort sorts the frequency pairs
 func InsertionSort(freqMap []NumStringPair) {
@@ -139,6 +146,7 @@ func InsertionSort(freqMap []NumStringPair) {
 	}
 }
 
+
 // WordFrequenciesForFile returns alphabetically sorted list
 // of (word,frequency) pairs for the given file.
 func WordFrequenciesForFile(filename string) []NumStringPair {
@@ -149,6 +157,13 @@ func WordFrequenciesForFile(filename string) []NumStringPair {
 	InsertionSort(freqMapping)
 	fmt.Println(freqMapping)
 	return freqMapping
+}
+
+
+// VectorAngle a list of (word,freq) pairs, sorted alphabetically.
+// Return the angle between these two vectors.
+func VectorAngle(L1 []NumStringPair, L2 []NumStringPair) float64 {
+	return 0
 }
 
 
