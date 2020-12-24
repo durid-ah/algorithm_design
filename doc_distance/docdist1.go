@@ -41,6 +41,7 @@ type NumStringPair struct {
 }
 
 func isAlNum(r rune) bool {
+	fmt.Println(string(r), unicode.IsDigit(r) || unicode.IsLetter(r))
 	return unicode.IsDigit(r) || unicode.IsLetter(r)
 }
 
@@ -72,7 +73,7 @@ func ReadFile(filename string) []string {
 // text lines into words.
 // Return list of all words found.
 func GetWordsFromLineList(list []string) []string {
-	wordList := make([]string, 20)
+	wordList := make([]string, 0)
 
 	for _, line := range list {
 		wordsInLine := GetWordsFromString(line)
@@ -85,8 +86,8 @@ func GetWordsFromLineList(list []string) []string {
 // GetWordsFromString returns a list of the words in the given
 // input string, converting each word to lower-case.
 func GetWordsFromString(line string) []string {
-	wordList := make([]string, 10)
-	characterList := make([]rune, 5)
+	wordList := make([]string, 0)
+	characterList := make([]rune, 0)
 	
 	for _, s := range line {
 		if isAlNum(s) {
@@ -94,7 +95,8 @@ func GetWordsFromString(line string) []string {
 		} else if len(characterList) > 0 {
 			word := strings.ToLower(string(characterList))
 			wordList = append(wordList, word)
-			characterList = make([]rune, 5)
+			characterList = make([]rune, 0)
+			fmt.Println(characterList)
 		}
 	}
 
@@ -121,14 +123,32 @@ func CountFrequency(wordList []string) []NumStringPair {
 	return L
 }
 
+// InsertionSort sorts the frequency pairs
+func InsertionSort(freqMap []NumStringPair) {
+	length := len(freqMap)
+	for i := 1; i < length; i++ {
+		key := freqMap[i]
+		j := i - 1
+		
+		for j >= 0 && freqMap[j].word > key.word {
+			freqMap[j + 1] = freqMap[j]
+			j--
+		}
+
+		freqMap[j + 1] = key
+	}
+}
+
 // WordFrequenciesForFile returns alphabetically sorted list
 // of (word,frequency) pairs for the given file.
-func WordFrequenciesForFile(filename string) {
+func WordFrequenciesForFile(filename string) []NumStringPair {
 	linelist := ReadFile(filename)
 	wordList := GetWordsFromLineList(linelist)
 	freqMapping := CountFrequency(wordList)
-
 	fmt.Println(freqMapping)
+	InsertionSort(freqMapping)
+	fmt.Println(freqMapping)
+	return freqMapping
 }
 
 
